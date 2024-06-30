@@ -3,9 +3,10 @@ import TourInformation from "./components/TourInformation";
 import CreateEventModal from "./components/CreateEventModal";
 
 function CreateTour() {
-  const [tourId, setTourId] = useState(null)
-  const [location, setLocation] = useState(null)
-  const [showCreateEvent, setShowCreateEvent] = useState(true)
+  const [tourId, setTourId] = useState("668116ac9ea4a42691a79445")
+  const [location, setLocation] = useState('')
+  const [showCreateEvent, setShowCreateEvent] = useState(false)
+  const locations = []
   const [tourDetails, setTourDetails] = useState({
     title: "",
     subtitle: "",
@@ -13,14 +14,17 @@ function CreateTour() {
     longDescription: ""
   })
 
-  const handleLocationChange = (name, value) => {
-    setLocation((prev) => ({
-      ...prev,
-      [name]: value
-    }))
+  const handleLocationChange = async (newLocation) => {
+    setLocation(newLocation);      
+    setShowCreateEvent(false)    
+    
+    if (tourId){
+      const response =await makePostRequest({location: newLocation, tourId: tourId}, `events`)
+      console.log(response)
+    }
 
-    setShowCreateEvent(false)
   };
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -61,18 +65,14 @@ function CreateTour() {
       </form>
 
       <div className="flex flex-col gap-2 justify-center border-b-[2px] py-5 border-b-grey-300">
-        <a href="" className="text-xl text-white-400">+location</a>
+        <button href="" className="text-xl text-white-400 self-start" onClick={() => setShowCreateEvent(true)}>+location</button>
         <div className="flex justify-between align-middle items-center">
           <ul className="flex gap-5 text-lg text-grey-100">
-            <li className="text-white-400">
-              <a href="">london</a>
+            {locations.map((location) => {
+              <li className="text-white-400">
+              <a href=""> {location} </a>
             </li>
-            <li>
-              <a href="">cape town</a>
-            </li>
-            <li>
-              <a href="">johannesburg</a>
-            </li>
+            })}            
           </ul>
 
           <button className="text-6xl text-white-400"> <p>+</p> </button>
@@ -87,9 +87,9 @@ function CreateTour() {
 
       {/* Modal */}
       {showCreateEvent && (
-        <div className="fixed top-0 left-0 w-full h-full flex backdrop-blur-sm flex-col justify-center items-center">
-          <div className="w-[800px] h-[600px] bg-grey-400 flex flex-col justify-center align-middle rounded-lg shadow-lg">
-            <CreateEventModal location={location} onLocationChange={handleLocationChange}/>
+        <div className="fixed top-0 left-0 w-full h-full flex backdrop-blur-sm flex-col justify-center items-center">          
+          <div className="w-[800px] h-[600px] bg-grey-400 flex flex-col justify-center align-middle rounded-lg shadow-lg">    
+            <CreateEventModal onLocationChange={handleLocationChange}/>
           </div>
         </div>
       )}

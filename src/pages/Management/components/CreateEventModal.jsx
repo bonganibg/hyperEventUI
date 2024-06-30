@@ -1,12 +1,20 @@
-function CreateEventModal({ location, onLocationChange }) {
-  const handleChange = (event) => {
-    const { name, value } = event.target;
-    onLocationChange(name, value);
-  };
+import { useState } from "react";
+
+function CreateEventModal({ onLocationChange }) {
+  const [location, setLocation] = useState("")
+
+  const handleChange = (e) => {
+    setLocation(e.target.value)    
+  }
+
+  const handleOnSubmit = async (e) => {       
+    onLocationChange(location)        
+    setLocation("")
+  }
 
   return (
     <section className="flex justify-center">
-      <form className="flex flex-col gap-5" onSubmit={handleChange}>
+      <form className="flex flex-col gap-5" onSubmit={handleOnSubmit}>
         <input
           type="text"
           name="location"
@@ -14,6 +22,7 @@ function CreateEventModal({ location, onLocationChange }) {
           placeholder="location"
           value={location}
           onChange={handleChange}
+               
         />        
         <button type="submit" className="self-start text-2xl hover:border-b-2 text-grey-200">
           save
