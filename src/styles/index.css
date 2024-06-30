@@ -1,0 +1,21 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+    font-family: "Josefin Slab", serif;
+}
+
+body {
+    background-color: #212529;
+    color: #FFF;
+}
+
+input, textarea, select{
+    /* remove the borders */
+    outline: none;
+    scrollbar-width: none;
+    background-color: #212529;
+    color: #6c757d;
+}
+
