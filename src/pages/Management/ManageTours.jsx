@@ -1,9 +1,20 @@
 import { Link } from "react-router-dom";
 import ViewTourCard from "./components/ViewTourCard";
+import { useEffect, useState } from "react";
 
 function ManageEvents() {
+  const [tours, setTours] = useState([])
 
-    const events = [1,2,3,4,5,6]
+    useEffect(() => {
+      const getTours = async () => {
+        const response = await fetch("http://localhost:8000/tours");
+        const data = await response.json();
+        console.log(data.tours)
+        setTours(data.tours)
+      }
+
+      getTours()
+    }, [])
 
   return (
     <section className="flex flex-col gap-10 text-3xl mx-52 my-24">
@@ -13,8 +24,8 @@ function ManageEvents() {
       </div>
 
       <div className="flex flex-col gap-5">
-        {events.map(() => (
-            <ViewTourCard/>
+        {tours.map((tour) => (
+            <ViewTourCard tour={tour}/>
         ))}
       </div>
     </section>
