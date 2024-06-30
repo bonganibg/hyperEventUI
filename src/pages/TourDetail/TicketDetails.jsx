@@ -1,11 +1,24 @@
-function TicketDetails({ticket, date}){
+function TicketDetails({ticket, info}){
+    const date = new Date(info.date);
+  const dateString = date.toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  });
+
+  const timeString = date.toLocaleTimeString('en-US', {
+    hour: 'numeric',
+    minute: 'numeric',
+    hour12: true,
+  });
+
     return (
         <section className="flex flex-col gap-1 justify-between border-t-[2px] border-t-grey-300 pt-12">            
             <p className="text-xl">
-                {date}
+                {dateString}
             </p>
             <p className="text-lg">
-                {ticket.gates_open}
+                {timeString}
             </p>
 
             <div className="mt-5 flex flex-row justify-between">

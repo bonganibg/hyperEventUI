@@ -1,7 +1,17 @@
+import { useEffect, useState } from "react";
 import TourCard from "./TourCard";
 
 function TourPage(){
-    const events = [1,2,3,4,5,6,7,8]
+    const [tours, setTours] = useState([])
+    useEffect(() => {
+        const getTours = async () => {
+            const response = await fetch("http://localhost:8000/tours");
+            const data = await response.json();
+            setTours(data.tours)
+        }
+
+        getTours()
+    })    
 
     return (
         <section className="m-24 my-44 flex flex-col gap-24">
@@ -21,8 +31,8 @@ function TourPage(){
             </div>
 
             <div className="grid grid-cols-2 gap-5">
-                {events.map((event) => (
-                    <TourCard key={event}/>
+                {tours.map((tour) => (
+                    <TourCard key={tour._id} tour={tour}/>
                 ))}
             </div>
 
