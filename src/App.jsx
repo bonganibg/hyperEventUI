@@ -23,7 +23,7 @@ function App() {
             <Route path="/auth" element={<AuthPage/>} />
             <Route path="/tours" element={<TourPage/>} />
             <Route path="/tour/:id" element={<TourDetailPage/>} />
-            <Route path="/management/create" element={<CreateTour/>} />
+            <Route path="/management/tour" element={<CreateTour/>} />
             <Route path="/management" element={<ManageTours/>} />      
             <Route path='*' element={<NotFound/>} />
           </Routes>

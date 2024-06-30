@@ -15,7 +15,7 @@ function ViewTourCard(){
                 </h2>
             </span>
 
-            <Link className="text-lg"  to="/management/create">
+            <Link className="text-lg"  to="/management/tour?id=123">
                 view
             </Link>
         </section>

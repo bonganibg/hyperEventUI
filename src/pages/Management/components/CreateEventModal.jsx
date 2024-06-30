@@ -1,16 +1,21 @@
 import { useState } from "react";
 
-function CreateEventModal({ onLocationChange }) {
-  const [location, setLocation] = useState("")
+function CreateEventModal({ onLocationChange, locationDetails }) {
+  const [location, setLocation] = useState(locationDetails);
 
   const handleChange = (e) => {
-    setLocation(e.target.value)    
-  }
+    setLocation({ name: e.target.value, id: location.id });
+  };
 
-  const handleOnSubmit = async (e) => {       
-    onLocationChange(location)        
-    setLocation("")
-  }
+  const handleOnSubmit = async (e) => {
+    onLocationChange(location);
+  };
+
+  const onDelete = async () => {
+    await fetch(`http://localhost:8000/events/${location.id}`, {
+      method: "DELETE",
+    });
+  };
 
   return (
     <section className="flex justify-center">
@@ -20,13 +25,13 @@ function CreateEventModal({ onLocationChange }) {
           name="location"
           className="border-b-[2px] text-2xl py-2"
           placeholder="location"
-          value={location}
+          value={location.name}
           onChange={handleChange}
-               
-        />        
-        <button type="submit" className="self-start text-2xl hover:border-b-2 text-grey-200">
-          save
-        </button>
+        />
+        <div className="self-start text-2xltext-grey-200 flex gap-4">
+          <button type="submit" className="hover:border-b-2">save</button>
+          <button onClick={onDelete} className="text-[#e26d5c] hover:border-b-2">delete</button>
+        </div>
       </form>
     </section>
   );

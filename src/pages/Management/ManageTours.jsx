@@ -9,7 +9,7 @@ function ManageEvents() {
     <section className="flex flex-col gap-10 text-3xl mx-52 my-24">
       <div className="flex flex-row justify-between border-b-[2px] border-b-grey-300  text-grey-200">
         <input type="search" placeholder="search" />
-        <Link className="text-5xl" to="/management/create">+</Link>
+        <Link className="text-5xl" to="/management/tour">+</Link>
       </div>
 
       <div className="flex flex-col gap-5">
